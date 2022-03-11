@@ -17,7 +17,7 @@ fonte_perdeu = font.SysFont('arial', 80)
 superficie = display.set_mode(
     size=tamanho
 )
-fundo = load('fundo.png')
+fundo = load('fundobonito.jpg')
 display.set_caption(
     'Vacina VS vírus'
 )
@@ -43,7 +43,7 @@ class ZeGotinha(Sprite):
         vacina_fonte = fonte.render(
             f'Vacinas : {10 - len(self.vacina)}',
             True,
-            (0, 0, 0)
+            (255, 255, 255)
         )
         superficie.blit(vacina_fonte, (10, 10))
 
@@ -128,7 +128,7 @@ while True:
     fonte_mortes = fonte.render(
         f'Mortes : {mortes}',
         True,
-        (0, 0, 0)
+        (255, 255, 255)
     )
 
     superficie.blit(fonte_mortes, (10, 35))
@@ -146,9 +146,9 @@ while True:
             True,
             (255,0,0)
         )
-        superficie.blit(fim, (150, 100))
+        superficie.blit(fim, (190, 170))
         display.update()
-        pygame.time.delay(1000)
+        pygame.time.delay(1500)
 
     round += 1
     display.update()
