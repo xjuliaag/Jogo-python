@@ -1,5 +1,5 @@
 from random import randint
-import pygame
+import pygame, sys
 from pygame import display
 from pygame.image import load
 from pygame.sprite import Sprite, Group, GroupSingle, groupcollide
@@ -124,6 +124,7 @@ while True:
     for evento in event.get():
         if evento.type == QUIT:
             pygame.quit()
+            sys.exit()
 
         if evento.type == KEYUP:
             if evento.key == K_SPACE:
@@ -158,7 +159,7 @@ while True:
         )
         superficie.blit(fim, (170, 100))
         display.update()
-        pygame.time.delay(1000)
+        pygame.time.delay(1500)
 
     round += 1
     display.update()
