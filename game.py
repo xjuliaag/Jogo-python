@@ -10,6 +10,15 @@ from pygame import font
 
 pygame.init()
 
+#Som inicio
+pygame.mixer.music.set_volume(0.1)
+musica_de_fundo = pygame.mixer.music.load('musica.wav')
+pygame.mixer.music.play(-1)
+
+acerto_vacina = pygame.mixer.Sound('musica_acerto.wav')
+acerto_vacina.set_volume(0.8)
+#Som fim
+
 tamanho = 800, 600
 fonte = font.SysFont('arial', 25)
 fonte_perdeu = font.SysFont('arial', 80)
@@ -19,7 +28,7 @@ superficie = display.set_mode(
 )
 fundo = load('fundobonito.jpg')
 display.set_caption(
-    'Vacina VS vírus'
+    'Vacina VS Vírus'
 )
 
 class ZeGotinha(Sprite):
@@ -121,6 +130,7 @@ while True:
                 zegotinha.jogar_vacina()
     if groupcollide(grupo_vacina, grupo_inimigos, True, True):
         mortes += 1
+        acerto_vacina.play()
 
     #Display
     superficie.blit(fundo, (0, 0))
@@ -146,14 +156,9 @@ while True:
             True,
             (255,0,0)
         )
-        superficie.blit(fim, (190, 170))
+        superficie.blit(fim, (170, 100))
         display.update()
-        pygame.time.delay(1500)
+        pygame.time.delay(1000)
 
     round += 1
     display.update()
-
-
-
-
-
