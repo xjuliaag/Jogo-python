@@ -136,7 +136,7 @@ while True:
     superficie.blit(fundo, (0, 0))
 
     fonte_mortes = fonte.render(
-        f'Mortes : {mortes}',
+        f'Acertos : {mortes}',
         True,
         (255, 255, 255)
     )
