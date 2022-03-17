@@ -93,7 +93,7 @@ class Vacina(Sprite):
     def update(self):
         self.rect.x += 1
 
-        if self.rect.x > tamanho[1]:
+        if self.rect.x > tamanho[0]:
             self.kill()
 
 
