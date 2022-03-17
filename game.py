@@ -10,18 +10,21 @@ from pygame import font
 
 pygame.init()
 
-#Som inicio
+# Som inicio
 pygame.mixer.music.set_volume(0.1)
 musica_de_fundo = pygame.mixer.music.load('musica.wav')
 pygame.mixer.music.play(-1)
 
 acerto_vacina = pygame.mixer.Sound('musica_acerto.wav')
 acerto_vacina.set_volume(0.8)
-#Som fim
+# Som fim
 
 tamanho = 800, 600
 fonte = font.SysFont('arial', 25)
-fonte_perdeu = font.SysFont('arial', 80)
+fonte_perdeu = font.SysFont('arial', 66)
+FPS = 120
+BRANCO = (255, 255, 255)
+VERMELHO = (255, 0, 0)
 
 superficie = display.set_mode(
     size=tamanho
@@ -31,6 +34,7 @@ display.set_caption(
     'Vacina VS Vírus'
 )
 
+
 class ZeGotinha(Sprite):
     def __init__(self, vacina):
         super().__init__()
@@ -38,7 +42,7 @@ class ZeGotinha(Sprite):
         self.image = load('zegotinha.png')
         self.rect = self.image.get_rect()
         self.vacina = vacina
-        self.velocidade = 4
+        self.velocidade = 3
 
     def jogar_vacina(self):
         if len(self.vacina) < 10:
@@ -52,18 +56,30 @@ class ZeGotinha(Sprite):
         vacina_fonte = fonte.render(
             f'Vacinas : {10 - len(self.vacina)}',
             True,
-            (255, 255, 255)
+            (BRANCO)
         )
         superficie.blit(vacina_fonte, (10, 10))
-
-        if keys [pygame.K_LEFT]:
+        
+        # Movimento nas teclas
+        if keys[pygame.K_LEFT]:
             self.rect.x -= self.velocidade
-        if keys [pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT]:
             self.rect.x += self.velocidade
-        if keys [pygame.K_UP]:
+        if keys[pygame.K_UP]:
             self.rect.y -= self.velocidade
         if keys[pygame.K_DOWN]:
-                self.rect.y += self.velocidade
+            self.rect.y += self.velocidade
+        
+        # Sprite se mantém na tela
+        if self.rect.right > 800:
+            self.rect.right = 800
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.bottom > 600:
+            self.rect.bottom = 600
+        if self.rect.top < 0:
+            self.rect.top = 0
+
 
 class Vacina(Sprite):
     def __init__(self, x, y):
@@ -77,7 +93,7 @@ class Vacina(Sprite):
     def update(self):
         self.rect.x += 1
 
-        if self.rect.x > tamanho[0]:
+        if self.rect.x > tamanho[1]:
             self.kill()
 
 
@@ -112,7 +128,7 @@ round = 0
 perdeu = False
 
 while True:
-    clock.tick(120)
+    clock.tick(FPS)
 
     if round % 120 == 0:
         if mortes < 20:
@@ -120,7 +136,7 @@ while True:
         for _ in range(int(mortes / 20)):
             grupo_inimigos.add(Virus())
     print(mortes)
-    #Eventos
+    # Eventos
     for evento in event.get():
         if evento.type == QUIT:
             pygame.quit()
@@ -133,13 +149,13 @@ while True:
         mortes += 1
         acerto_vacina.play()
 
-    #Display
+    # Display
     superficie.blit(fundo, (0, 0))
 
     fonte_mortes = fonte.render(
         f'Acertos : {mortes}',
         True,
-        (255, 255, 255)
+        (BRANCO)
     )
 
     superficie.blit(fonte_mortes, (10, 35))
@@ -155,9 +171,9 @@ while True:
         fim = fonte_perdeu.render(
             'Você perdeu!',
             True,
-            (255,0,0)
+            (VERMELHO)
         )
-        superficie.blit(fim, (170, 100))
+        superficie.blit(fim, (250, 20))
         display.update()
         pygame.time.delay(1500)
 
