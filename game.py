@@ -25,6 +25,15 @@ fonte_perdeu = font.SysFont('arial', 66)
 FPS = 120
 BRANCO = (255, 255, 255)
 VERMELHO = (255, 0, 0)
+PRETO = (0, 0, 0)
+timer = 0
+tempo_segundo = 0
+
+
+#Contator de segundos
+texto = fonte.render("Tempo: ", True, (BRANCO), (PRETO))
+pos_texto = texto.get_rect()
+pos_texto.center = (54, 80)
 
 superficie = display.set_mode(
     size=tamanho
@@ -56,10 +65,10 @@ class ZeGotinha(Sprite):
         vacina_fonte = fonte.render(
             f'Vacinas : {10 - len(self.vacina)}',
             True,
-            (BRANCO)
+            (BRANCO), (PRETO)
         )
         superficie.blit(vacina_fonte, (10, 10))
-        
+
         # Movimento nas teclas
         if keys[pygame.K_LEFT]:
             self.rect.x -= self.velocidade
@@ -69,7 +78,7 @@ class ZeGotinha(Sprite):
             self.rect.y -= self.velocidade
         if keys[pygame.K_DOWN]:
             self.rect.y += self.velocidade
-        
+
         # Sprite se mantém na tela
         if self.rect.right > 800:
             self.rect.right = 800
@@ -149,19 +158,27 @@ while True:
         mortes += 1
         acerto_vacina.play()
 
+    if (timer <140):
+        timer += 1
+    else:
+        tempo_segundo += 1
+        texto = fonte.render("Tempo : "+str(tempo_segundo), True, (BRANCO), (PRETO))
+        timer = 0
+
     # Display
     superficie.blit(fundo, (0, 0))
 
     fonte_mortes = fonte.render(
         f'Acertos : {mortes}',
         True,
-        (BRANCO)
+        (BRANCO), (PRETO)
     )
 
-    superficie.blit(fonte_mortes, (10, 35))
+    superficie.blit(fonte_mortes, (10, 38))
     grupo_zegotinha.draw(superficie)
     grupo_inimigos.draw(superficie)
     grupo_vacina.draw(superficie)
+    superficie.blit(texto, pos_texto)
 
     grupo_zegotinha.update()
     grupo_inimigos.update()
@@ -173,7 +190,7 @@ while True:
             True,
             (VERMELHO)
         )
-        superficie.blit(fim, (250, 20))
+        superficie.blit(fim, (210, 20))
         display.update()
         pygame.time.delay(1500)
 
