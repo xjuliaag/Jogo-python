@@ -8,6 +8,7 @@ from pygame.locals import QUIT, KEYUP, K_SPACE
 from pygame.time import Clock
 from pygame import font
 
+
 pygame.init()
 
 # Som inicio
@@ -29,7 +30,6 @@ PRETO = (0, 0, 0)
 timer = 0
 tempo_segundo = 0
 
-
 #Contator de segundos
 texto = fonte.render("Tempo: ", True, (BRANCO), (PRETO))
 pos_texto = texto.get_rect()
@@ -42,7 +42,6 @@ fundo = load('fundobonito.jpg')
 display.set_caption(
     'Vacina VS Vírus'
 )
-
 
 class ZeGotinha(Sprite):
     def __init__(self, vacina):
@@ -89,7 +88,6 @@ class ZeGotinha(Sprite):
         if self.rect.top < 0:
             self.rect.top = 0
 
-
 class Vacina(Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -104,7 +102,6 @@ class Vacina(Sprite):
 
         if self.rect.x > tamanho[0]:
             self.kill()
-
 
 class Virus(Sprite):
     def __init__(self):
@@ -122,7 +119,6 @@ class Virus(Sprite):
             self.kill()
             global perdeu
             perdeu = True
-
 
 grupo_inimigos = Group()
 grupo_vacina = Group()
@@ -158,7 +154,18 @@ while True:
         mortes += 1
         acerto_vacina.play()
 
-    if (timer <140):
+    if groupcollide(grupo_zegotinha, grupo_inimigos, True, True):
+        fim = fonte_perdeu.render(
+            'Você perdeu!',
+            True,
+            (VERMELHO)
+        )
+        superficie.blit(fim, (210, 20))
+        display.update()
+        pygame.time.delay(4500)
+
+
+    if timer < 140:
         timer += 1
     else:
         tempo_segundo += 1
