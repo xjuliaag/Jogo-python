@@ -12,7 +12,7 @@ from pygame import font
 pygame.init()
 
 # Som inicio
-pygame.mixer.music.set_volume(0.3)
+pygame.mixer.music.set_volume(0.2)
 musica_de_fundo = pygame.mixer.music.load('musica_menu.wav')
 pygame.mixer.music.play(-1)
 
@@ -69,7 +69,7 @@ def jogar():
         superficie = display.set_mode(
             size=tamanho
         )
-        fundo = load('fundobonito.jpg')
+        fundo = load('fundojogo.png')
         display.set_caption(
             'Vacina VS Vírus'
         )
@@ -248,11 +248,11 @@ def opçoes():
     while True:
         OPÇOES_MOUSE_POS = pygame.mouse.get_pos()
 
-        TELA.fill("white")
+        TELA.fill("#b7c1e5")
 
-        OPÇOES_TEXT = get_font(45).render("Ayrton da Silva", True, "#70d885")
-        OPÇOES_TEXT2 = get_font(45).render("Julia Gomes", True, "#70d885")
-        OPÇOES_TEXT3 = get_font(45).render("Matheus Vicente", True, "#70d885")
+        OPÇOES_TEXT = get_font(45).render("Ayrton da Silva", True, "#3c4c6c")
+        OPÇOES_TEXT2 = get_font(45).render("Julia Gomes", True, "#3c4c6c")
+        OPÇOES_TEXT3 = get_font(45).render("Matheus Vicente", True, "#3c4c6c")
 
 
         OPÇOES_RECT = OPÇOES_TEXT.get_rect(center=(640, 220))
@@ -266,7 +266,7 @@ def opçoes():
 
 
         OPÇOES_BACK = Button(image=None, pos=(640, 460),
-                              text_input="VOLTAR", font=get_font(75), base_color="#368170", hovering_color="Black")
+                              text_input="VOLTAR", font=get_font(75), base_color="#1a2656", hovering_color="Black")
 
         OPÇOES_BACK.changeColor(OPÇOES_MOUSE_POS)
         OPÇOES_BACK.update(TELA)
@@ -288,15 +288,15 @@ def main_menu():
 
         MENU_MOUSE_POS = pygame.mouse.get_pos()
 
-        MENU_TEXT = get_font(80).render("MENU PRINCIPAL", True, "#70d885")
+        MENU_TEXT = get_font(80).render("MENU PRINCIPAL", True, "#7088c0")
         MENU_RECT = MENU_TEXT.get_rect(center=(640, 100))
 
         JOGAR_BUTTON = Button(image=pygame.image.load("Jogar Rect.png"), pos=(640, 250),
-                             text_input="JOGAR", font=get_font(55), base_color="#c7e4c6", hovering_color="White")
+                             text_input="JOGAR", font=get_font(55), base_color="#b7c1e5", hovering_color="White")
         OPÇOES_BUTTON = Button(image=pygame.image.load("Opçoes Rect.png"), pos=(640, 400),
-                                text_input="CREDITOS", font=get_font(55), base_color="#c7e4c6", hovering_color="White")
+                                text_input="CREDITOS", font=get_font(55), base_color="#b7c1e5", hovering_color="White")
         FECHAR_BUTTON = Button(image=pygame.image.load("Jogar Rect.png"), pos=(640, 550),
-                             text_input="FECHAR", font=get_font(55), base_color="#c7e4c6", hovering_color="White")
+                             text_input="FECHAR", font=get_font(55), base_color="#b7c1e5", hovering_color="White")
 
         TELA.blit(MENU_TEXT, MENU_RECT)
 
