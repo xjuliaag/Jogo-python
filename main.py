@@ -11,10 +11,11 @@ from pygame import font
 
 pygame.init()
 
-# Som inicio
+# Musica inicio
 pygame.mixer.music.set_volume(0.2)
 musica_de_fundo = pygame.mixer.music.load('musica_menu.wav')
 pygame.mixer.music.play(-1)
+# Musica fim
 
 TELA = pygame.display.set_mode((1280, 720))
 pygame.display.set_caption("Menu")
@@ -52,9 +53,10 @@ def jogar():
 
         pygame.display.update()
 
+        # Acerto inicio
         acerto_vacina = pygame.mixer.Sound('musica_acerto.wav')
         acerto_vacina.set_volume(0.8)
-        # Som fim
+        # Acerto fim
 
         tamanho = 1280, 720
         fonte = font.Font("8-BIT WONDER.TTF", 25)
@@ -88,7 +90,7 @@ def jogar():
                     center=(200, randint(60, 150))
                 )
                 self.vacina = vacina
-                self.velocidade = 3
+                self.velocidade = 5
 
             def jogar_vacina(self):
                 if len(self.vacina) < 10:
@@ -125,6 +127,7 @@ def jogar():
                     self.rect.bottom = 720
                 if self.rect.top < 0:
                     self.rect.top = 0
+
 
         class Vacina(Sprite):
             def __init__(self, x, y):
@@ -242,8 +245,6 @@ def jogar():
             display.update()
 
 
-
-
 def opçoes():
     while True:
         OPÇOES_MOUSE_POS = pygame.mouse.get_pos()
@@ -318,6 +319,5 @@ def main_menu():
                     sys.exit()
 
         pygame.display.update()
-
-
+        
 main_menu()
