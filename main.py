@@ -18,10 +18,12 @@ pygame.mixer.music.play(-1)
 # Musica fim
 
 TELA = pygame.display.set_mode((1280, 720))
-pygame.display.set_caption("Menu")
+pygame.display.set_caption("Zé gotinha vs Vírus")
 
 BG = pygame.image.load("fundomenu.png")
 
+icon=pygame.image.load("zegotinha.png")
+pygame.display.set_icon(icon)
 
 def get_font(size):
     return pygame.font.Font("8-BIT WONDER.TTF", size)
@@ -97,6 +99,10 @@ def jogar():
                     self.vacina.add(
                         Vacina(*self.rect.center)
                     )
+                if mortes >= 20:
+                    self.vacina.add(
+                        Vacina(*self.rect.center)
+                    )
 
             def update(self):
                 keys = pygame.key.get_pressed()
@@ -125,10 +131,10 @@ def jogar():
                     self.rect.left = 0
                 if self.rect.bottom > 720:
                     self.rect.bottom = 720
-                if self.rect.top < 0:
-                    self.rect.top = 0
+                if self.rect.top < 80:
+                    self.rect.top = 80
 
-
+        
         class Vacina(Sprite):
             def __init__(self, x, y):
                 super().__init__()
@@ -150,7 +156,7 @@ def jogar():
 
                 self.image = load('virus.png')
                 self.rect = self.image.get_rect(
-                    center=(1280, randint(60, 710))
+                    center=(1280, randint(85, 710))
                 )
 
             def update(self):
@@ -160,6 +166,24 @@ def jogar():
                     self.kill()
                     global perdeu
                     perdeu = True
+
+        class Virus2(Sprite):
+            def __init__(self):
+                super().__init__()
+
+                self.image = load('virus2.png')
+                self.rect = self.image.get_rect(
+                    center=(1280, randint(85, 710))
+                )
+
+            def update(self):
+                self.rect.x -= 0.1
+
+                if self.rect.x == 0:
+                    self.kill()
+                    global perdeu
+                    perdeu = True
+
 
         grupo_inimigos = Group()
         grupo_vacina = Group()
@@ -180,8 +204,9 @@ def jogar():
                 if mortes < 20:
                     grupo_inimigos.add(Virus())
                 for _ in range(int(mortes / 20)):
-                    grupo_inimigos.add(Virus())
+                    grupo_inimigos.add(Virus2())
             print(mortes)
+
             # Eventos
             for event in pygame.event.get():
                 if event.type == QUIT:
@@ -191,6 +216,8 @@ def jogar():
                 if event.type == KEYUP:
                     if event.key == K_SPACE:
                         zegotinha.jogar_vacina()
+
+
             if groupcollide(grupo_vacina, grupo_inimigos, True, True):
                 mortes += 1
                 acerto_vacina.play()
@@ -319,5 +346,6 @@ def main_menu():
                     sys.exit()
 
         pygame.display.update()
-        
+
+
 main_menu()
